@@ -18,6 +18,58 @@
        ↓
 [8] Compute Accuracy and Confusion Matrix
 
+
+
+[1] Load Iris CSV
+Use pandas.read_csv() to load the Iris dataset, which includes flower measurements and species names.
+This step brings data into memory for analysis and modeling.
+If the file lacks column headers, they will be added in the next step.
+This is a common starting point in classification problems.
+
+[2] Add Headers (if needed)
+If the dataset lacks column names, manually assign headers like ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class'].
+Proper headers make data easier to interpret and manipulate.
+This ensures the dataset has meaningful column names for later steps.
+It's essential for clean and readable code.
+
+[3] Extract Features (X) and Target (y)
+Split the dataset into input features X (first four columns) and target y (flower species).
+Use df.iloc[:, :-1] for features and df.iloc[:, -1] for the target.
+This step prepares the data for training a classifier.
+X holds the measurements; y holds the class labels.
+
+[4] Encode Target Classes to Numeric Labels
+Use pd.factorize() to convert categorical class labels (e.g., 'setosa') into numeric values.
+This is needed because machine learning models require numerical inputs.
+The model will now work with integers like 0, 1, 2 instead of strings.
+This step also preserves mapping for later decoding.
+
+[5] Train/Test Split
+Split the dataset into training and testing sets using train_test_split().
+The training set teaches the model, while the test set is used for evaluation.
+This prevents overfitting and ensures the model works on unseen data.
+The split is usually 70/30 or 80/20 depending on dataset size.
+
+[6] For Each Test Point:
+Loop through each test point and:
+→ Calculate the Euclidean distance between the test point and every training point
+→ Sort the distances in ascending order
+→ Select the top k (e.g., 8) nearest neighbors
+→ Use majority voting among neighbors to assign a predicted label
+This is the core logic of KNN — a lazy learning algorithm.
+
+[7] Compare Predictions with True Labels
+Match predicted labels against the actual test labels to count correct predictions.
+This helps in calculating the model’s classification accuracy.
+A simple loop can tally the number of correct outputs.
+It gives insight into the model’s performance.
+
+[8] Compute Accuracy and Confusion Matrix
+Use accuracy_score() to compute the overall accuracy percentage.
+Use confusion_matrix() to see how many predictions were correct for each class.
+This matrix shows true positives, false positives, and class-wise errors.
+It’s a detailed way to evaluate classification results.
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
