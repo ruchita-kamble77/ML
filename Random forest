@@ -1,0 +1,88 @@
+[1] Load & Explore Data
+       |
+       v
+[2] Visualize Data (Scatter Plot)
+       |
+       v
+[3] One-Hot Encode Categorical Variables
+       |
+       v
+[4] Separate Target Variable (y)
+       |
+       v
+[5] Drop Irrelevant Columns
+       |
+       v
+[6] Convert to NumPy Arrays (X, y)
+       |
+       v
+[7] Train/Test Split (75/25)
+       |
+       v
+[8] Train Random Forest Model
+       |
+       v
+[9] Predict on Test Data
+       |
+       v
+[10] Calculate MAE and Accuracy
+
+
+import pd
+np
+head
+info
+shape
+describe
+import plt
+
+plt.scatter(list(range(1,349)),df['actual'])
+temp_2	
+temp_1
+forecast_noaa
+friend
+
+df = pd.get_dummies(df)
+
+df.head()
+
+y = np.array(df['actual'])
+y.shape
+df =df.drop(['actual'],axis=1)
+df=df.drop('forecast_noaa',axis=1)
+df=df.drop('forecast_acc',axis=1)
+df=df.drop('forecast_under',axis=1)
+df.head()
+list(df.columns)
+
+X =np.array(df)
+X.shape
+from sklearn.model_selection import train_test_split
+
+Xtrain, Xtest, ytrain, ytest = train_test_split(X, y, test_size=0.25, random_state=5)
+Xtrain.shape
+Xtest.shape
+ytrain.shape
+ytest.shape
+
+from sklearn.ensemble import RandomForestRegressor
+rf = RandomForestRegressor (n_estimators= 1000, random_state =5)
+
+rf.fit(Xtrain ,ytrain)
+pred =rf.predict(Xtest)
+Xtest
+pred
+ytest
+pred
+ytest
+errors =abs(pred - ytest)
+print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
+import sklearn.metrics as met
+met.median_absolute_error(pred,ytest)
+mape = 100 * errors / ytest # Use 'erroes' instead of 'error'
+accuracy = 100 - np.mean(mape)
+print(accuracy)
+
+Random forest 
+
+explain each steps what input output and give flowsteps
