@@ -17,6 +17,62 @@
 [9] Evaluate Accuracy and Confusion Matrix
 
 
+[1] Load Dataset (CSV)
+Import the dataset using pandas.read_csv() to read a .csv file into a DataFrame.
+This step loads data into memory so it can be analyzed and used for training.
+It’s the starting point for any data science pipeline.
+You can also inspect a few rows using .head().
+
+[2] Check for Nulls
+Use .isna().sum() to check for missing values in each column.
+Missing data can distort model learning, so it must be handled (filled or dropped).
+If all values are present, you can proceed without imputation.
+This step ensures data quality and reliability.
+
+[3] Select Features (Age, Salary) and Target (Purchased)
+Pick relevant input features (e.g., Age, EstimatedSalary) and the output label (e.g., Purchased).
+Use .iloc or column names to extract them into X and y.
+Feature selection determines what the model will learn from.
+Correctly choosing the target ensures proper classification.
+
+[4] Visualize Data (Scatter Plot)
+Plot the selected features using matplotlib.pyplot.scatter() to observe their distribution.
+Color points by target label (c=y) to view class separation.
+Helps assess if the data is linearly separable, aiding kernel selection.
+Early visual insights guide model and preprocessing choices.
+
+[5] Train-Test Split (70-30)
+Use train_test_split() to divide data into training and test sets (commonly 70% train, 30% test).
+The model learns on training data and is evaluated on test data.
+A random_state ensures consistent splits during experimentation.
+This helps prevent overfitting and ensures unbiased evaluation.
+
+[6] Scale Features with StandardScaler
+SVM is sensitive to feature scales, so apply StandardScaler to normalize X_train and X_test.
+Standardization gives each feature a mean of 0 and standard deviation of 1.
+Scaling ensures fair treatment of features and better convergence.
+It is critical for distance-based models like SVM.
+
+[7] Train SVM Model (linear/poly/rbf)
+Fit an SVM classifier using kernels such as linear, poly, or rbf depending on data distribution.
+Each kernel handles data differently—linear for straight-line separation, rbf for curved boundaries.
+Use .fit() on training data to train the classifier.
+The model finds an optimal hyperplane to separate classes.
+
+[8] Predict on Test Data
+Use .predict() to generate predictions on scaled test data.
+The classifier applies the learned decision function to assign class labels.
+Predictions are compared with true labels to evaluate performance.
+This step shows how well the model generalizes.
+
+[9] Evaluate Accuracy and Confusion Matrix
+Use accuracy_score() to measure overall correct predictions.
+Use confusion_matrix() to analyze true positives, false positives, etc.
+These metrics help interpret how the model performs on each class.
+High accuracy and a clean confusion matrix indicate a good model.
+
+
+
 
 import numpy as np
 import pandas as pd
