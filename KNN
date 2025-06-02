@@ -1,0 +1,74 @@
+[1] Load Iris CSV
+       ↓
+[2] Add Headers (if needed)
+       ↓
+[3] Extract Features (X) and Target (y)
+       ↓
+[4] Encode Target Classes to Numeric Labels
+       ↓
+[5] Train/Test Split
+       ↓
+[6] For Each Test Point:
+       → Compute Euclidean Distance to All Train Points
+       → Sort Distances
+       → Pick k Nearest Neighbors
+       → Majority Voting → Predict Label
+       ↓
+[7] Compare Predictions with True Labels
+       ↓
+[8] Compute Accuracy and Confusion Matrix
+
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+df = pd.read_csv("/content/iris.csv")
+df.head()
+df.describe()
+headername = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class']
+df = pd.read_csv("/content/iris.csv", names = headername)
+df.head()
+df.describe()
+X = df.iloc[:, :-1].values
+X
+y = df.iloc[:,-1].values
+y
+label,unique = pd.factorize(y)
+label
+unique
+X_train,X_test,y_train,y_test = train_test_split(X,label)
+def takeSecond(elem):
+  return elem[1]
+def KNNClassify(X_test,X_train=X_train,y_train=y_train,k=8):
+  min_dist = []
+  for i,point in enumerate(X_train):
+    d0 = (point[0]-X_test[0])**2
+    d1 = (point[1]-X_test[1])**2
+    d2 = (point[2]-X_test[2])**2
+    d3 = (point[3]-X_test[3])**2
+    dist = np.sqrt(np.sum(d0+d1+d2+d3))
+    min_dist.append((i,dist))
+
+  min_dist.sort(key=takeSecond)
+  neighbours = min_dist[:k]
+  idx = []
+  for tup in neighbours:
+    idx.append(tup[0])
+
+  output = y_train[idx]
+  values,count = np.unique(output,return_counts=True)
+  max_idx = np.argmax(count)
+  return values[max_idx]
+
+predictions = list(map(KNNClassify,X_test))
+correctCount = 0
+for i in range(len(y_test)):
+  if predictions[i] == y_test[i]:
+    correctCount += 1
+
+accuracy = correctCount*100/len(y_test)
+print('Accuracy = ', accuracy)
+from sklearn import metrics as  met
+met.confusion_matrix(y_test,predictions)
+met.accuracy_score(predictions,y_test)
+
+exaplian KNN and what input output also flowsteps
